@@ -1,0 +1,83 @@
+<table mat-table [dataSource]="freelancers" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <!-- <ng-container matColumnDef="_id">
+      <th mat-header-cell *matHeaderCellDef> id </th>
+      <td mat-cell *matCellDef="let freelancer"> {{freelancer.name}} </td>
+    </ng-container> -->
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let freelancer"> {{freelancer.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef> userName </th>
+        <td mat-cell *matCellDef="let freelancer"> {{freelancer.userName}} </td>
+      </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> email </th>
+      <td mat-cell *matCellDef="let freelancer"> {{freelancer.email}}</td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="mobile">
+      <th mat-header-cell *matHeaderCellDef> mobile </th>
+      <td mat-cell *matCellDef="let freelancer"> {{freelancer.mobile}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hoursPerWeek">
+        <th mat-header-cell *matHeaderCellDef> hoursPerWeek </th>
+        <td mat-cell *matCellDef="let freelancer"> {{freelancer.hoursPerWeek}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rating">
+        <th mat-header-cell *matHeaderCellDef> rating </th>
+        <td mat-cell *matCellDef="let freelancer"> {{freelancer.rating}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="talentQuality">
+        <th mat-header-cell *matHeaderCellDef> talentQuality </th>
+        <td mat-cell *matCellDef="let freelancer"> {{freelancer.talentQualitty}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="availableBadge">
+        <th mat-header-cell *matHeaderCellDef> availableBadge </th>
+        <td mat-cell *matCellDef="let freelancer"> {{freelancer.availableBadge}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef> gender </th>
+        <td mat-cell *matCellDef="let freelancer"> {{freelancer.gender}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="jobsCompleted">
+        <th mat-header-cell *matHeaderCellDef> jobsCompleted </th>
+        <td mat-cell *matCellDef="let freelancer"> {{freelancer.jobsCompleted}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="joinedDate">
+        <th mat-header-cell *matHeaderCellDef> joinedDate </th>
+        <td mat-cell *matCellDef="let freelancer"> {{freelancer.joinedDate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="pricePerHour">
+        <th mat-header-cell *matHeaderCellDef> pricePerHour</th>
+        <td mat-cell *matCellDef="let freelancer"> {{freelancer.pricePerHour}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> description </th>
+        <td mat-cell *matCellDef="let freelancer"> {{freelancer.description}} </td>
+      </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  
