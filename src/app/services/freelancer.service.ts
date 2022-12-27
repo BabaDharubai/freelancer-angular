@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Freelancer } from '../models/freelancer';
 
 @Injectable({
@@ -15,15 +15,32 @@ export class FreelancerService {
   private _baseUrl="http://localhost:8081/freelancer/";
 
   getFreelacners=():Observable<Freelancer[]>=>{
+    // return this._http.get<Freelancer[]>(this._baseUrl.concat("all")).pipe(
+    //   map((response)=>{
+    //     return {
+    //       columns:Object.keys(response[0]),
+    //       data:response
+    //     }
+    //   })
+    // );
     return this._http.get<Freelancer[]>(this._baseUrl.concat("all"));
   }
 
-  getById=(id:number):Observable<Freelancer>=>{
+//   map((response) => {
+//     return {
+//         columns: Object.keys(response[0]),
+//         data: response
+//     }
+// })
+
+  getById=(id:string):Observable<Freelancer>=>{
     let url=this._baseUrl+id;
     return this._http.get<Freelancer>(url);
   }
 
   saveFreelancer=(freelacner:Freelancer):Observable<Freelancer>=>{
+    console.log("service");
+    console.log(freelacner);
     return this._http.post<Freelancer>(this._baseUrl,freelacner);
   }
 

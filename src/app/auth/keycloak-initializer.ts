@@ -13,5 +13,8 @@ export function initializer(keycloak:KeycloakService):()=>Promise<boolean>{
         },
         bearerExcludedUrls:[]
     };
-    return ()=>keycloak.init(options);
+    return ()=>{
+        
+        return keycloak.init(options);
+    }
 }

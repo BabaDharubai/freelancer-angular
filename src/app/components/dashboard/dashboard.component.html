@@ -7,8 +7,14 @@
     <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
        <mat-icon>favorite</mat-icon> 
     </button> -->
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>home</mat-icon>
-    </button>
+    <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"> -->
+      
+    <!-- </button> -->
+    <button mat-button [matMenuTriggerFor]="profile"><mat-icon>account_circle</mat-icon></button>
+<mat-menu #profile="matMenu" xPosition="before">
+  <button mat-menu-item>Profile</button>
+  <button mat-menu-item (click)="logout()">Logout</button>
+</mat-menu>
+
   </mat-toolbar>
   <app-nav-bar></app-nav-bar>

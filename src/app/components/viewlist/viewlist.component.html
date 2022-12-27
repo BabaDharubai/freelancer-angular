@@ -1,83 +1,150 @@
-<table mat-table [dataSource]="freelancers" class="mat-elevation-z8">
 
-    <!--- Note that these columns can be defined in any order.
+<button [ngClass]="'list-icons'" mat-button color="primary" (click)="openDialog(pick)"><mat-icon>playlist_add_check</mat-icon></button>
+<button [ngClass]="'list-icons'" mat-button *ngIf="roles.includes('manager')" color="primary"><a [routerLink]="['/view-details']"><mat-icon>person_add</mat-icon></a></button>
+
+<ng-template #pick>
+  <mat-dialog-content>
+    <mat-selection-list #filter>
+      <mat-list-option
+        *ngFor="let column of displayedColumns"
+        value="{{ column }}"
+      >
+        {{ column }}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button
+      mat-button
+      matDialogClose
+      color="primary"
+      (click)="show(filter._value)">
+      save
+    </button>
+  </mat-dialog-actions>
+</ng-template>
+
+<div [ngClass]="">
+<table
+  *ngIf="freelancers"
+  mat-table
+  [dataSource]="freelancers"
+  class="mat-elevation-z8"
+>
+  <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- Position Column -->
-    <!-- <ng-container matColumnDef="_id">
+
+  <ng-container matColumnDef="_id" *ngIf="'matColumnDef'">
       <th mat-header-cell *matHeaderCellDef> id </th>
-      <td mat-cell *matCellDef="let freelancer"> {{freelancer.name}} </td>
-    </ng-container> -->
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let freelancer"> {{freelancer.name}} </td>
-    </ng-container>
-    <ng-container matColumnDef="userName">
-        <th mat-header-cell *matHeaderCellDef> userName </th>
-        <td mat-cell *matCellDef="let freelancer"> {{freelancer.userName}} </td>
-      </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> email </th>
-      <td mat-cell *matCellDef="let freelancer"> {{freelancer.email}}</td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="mobile">
-      <th mat-header-cell *matHeaderCellDef> mobile </th>
-      <td mat-cell *matCellDef="let freelancer"> {{freelancer.mobile}} </td>
+      <td mat-cell *matCellDef="let freelancer"> {{freelancer._id}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="hoursPerWeek">
-        <th mat-header-cell *matHeaderCellDef> hoursPerWeek </th>
-        <td mat-cell *matCellDef="let freelancer"> {{freelancer.hoursPerWeek}} </td>
-      </ng-container>
+    <ng-container matColumnDef="_rev" *ngIf="'matColumnDef'">
+      <th mat-header-cell *matHeaderCellDef> rev </th>
+      <td mat-cell *matCellDef="let freelancer"> {{freelancer._rev}} </td>
+    </ng-container>
 
-      <ng-container matColumnDef="rating">
-        <th mat-header-cell *matHeaderCellDef> rating </th>
-        <td mat-cell *matCellDef="let freelancer"> {{freelancer.rating}} </td>
-      </ng-container>
+  <ng-container matColumnDef="name" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef >Name</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="userName" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>userName</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.userName }}</td>
+  </ng-container>
 
-      <ng-container matColumnDef="talentQuality">
-        <th mat-header-cell *matHeaderCellDef> talentQuality </th>
-        <td mat-cell *matCellDef="let freelancer"> {{freelancer.talentQualitty}} </td>
-      </ng-container>
+  <ng-container matColumnDef="email" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>email</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.email }}</td>
+  </ng-container>
 
-      <ng-container matColumnDef="availableBadge">
-        <th mat-header-cell *matHeaderCellDef> availableBadge </th>
-        <td mat-cell *matCellDef="let freelancer"> {{freelancer.availableBadge}} </td>
-      </ng-container>
+  <ng-container matColumnDef="mobile" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>mobile</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.mobile }}</td>
+  </ng-container>
 
-      <ng-container matColumnDef="gender">
-        <th mat-header-cell *matHeaderCellDef> gender </th>
-        <td mat-cell *matCellDef="let freelancer"> {{freelancer.gender}} </td>
-      </ng-container>
+  <ng-container matColumnDef="address" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>Address</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.address.country }}</td>
+  </ng-container>
 
-      <ng-container matColumnDef="jobsCompleted">
-        <th mat-header-cell *matHeaderCellDef> jobsCompleted </th>
-        <td mat-cell *matCellDef="let freelancer"> {{freelancer.jobsCompleted}} </td>
-      </ng-container>
+  <ng-container matColumnDef="category" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>category</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.category}}</td>
+  </ng-container>
 
-      <ng-container matColumnDef="joinedDate">
-        <th mat-header-cell *matHeaderCellDef> joinedDate </th>
-        <td mat-cell *matCellDef="let freelancer"> {{freelancer.joinedDate}} </td>
-      </ng-container>
+  <ng-container matColumnDef="hoursPerWeek" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>hoursPerWeek</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.hoursPerWeek }}</td>
+  </ng-container>
 
-      <ng-container matColumnDef="pricePerHour">
-        <th mat-header-cell *matHeaderCellDef> pricePerHour</th>
-        <td mat-cell *matCellDef="let freelancer"> {{freelancer.pricePerHour}} </td>
-      </ng-container>
+  <ng-container matColumnDef="rating" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>rating</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.rating }}</td>
+  </ng-container>
 
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef> description </th>
-        <td mat-cell *matCellDef="let freelancer"> {{freelancer.description}} </td>
-      </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  
-  
+  <ng-container matColumnDef="talentQuality" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>talentQuality</th>
+    <td mat-cell *matCellDef="let freelancer">
+      {{ freelancer.talentQuality }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="availableBadge" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>availableBadge</th>
+    <td mat-cell *matCellDef="let freelancer">
+      {{ freelancer.availableBadge }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="skills" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>Skills</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.skills }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="gender" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>gender</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.gender }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="languages" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>Languages</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.languages }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="jobsCompleted" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>jobsCompleted</th>
+    <td mat-cell *matCellDef="let freelancer">
+      {{ freelancer.jobsCompleted }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="joinedDate" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>joinedDate</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.joinedDate }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="pricePerHour" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>pricePerHour</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.pricePerHour }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="description" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>description</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.description }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="certificates" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>Certificates</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.certificates }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="experiences" *ngIf="'matColumnDef'">
+    <th mat-header-cell *matHeaderCellDef>Experiences</th>
+    <td mat-cell *matCellDef="let freelancer">{{ freelancer.experiences }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="options"></tr>
+  <tr  (click)="route(freelancer._id)" mat-row *matRowDef="let row; columns: options;let freelancer"></tr>
+</table>
+</div>

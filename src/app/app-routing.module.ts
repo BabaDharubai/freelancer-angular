@@ -24,6 +24,12 @@ const routes: Routes = [
     data:{roles:["manager","user","editor"]}
   },
   {
+    path:'view-details/:freelancerId',
+    component:ViewdetailsComponent,
+    canActivate:[AuthGuard],
+    data:{roles:["manager","user","editor"]}
+  },
+  {
     path:'view-details:/freelancer',
     component:ViewdetailsComponent,
     canActivate:[AuthGuard],

@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile, KeycloakTokenParsed } from 'keycloak-js';
 
+type token={
+  __zone_symbol__value:string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +16,7 @@ export class AuthService {
   public getLoggedUser():KeycloakTokenParsed | undefined{
     try{
       const userDetails:KeycloakTokenParsed | undefined=this.keycloakService.getKeycloakInstance().idTokenParsed;
+      console.log(userDetails);
       return userDetails;
     }catch(e){
       console.error("Exception",e);
@@ -42,4 +47,10 @@ export class AuthService {
   public getRoles():string[]{
     return this.keycloakService.getUserRoles();
   }
+  
+  public  getToken():Promise<string>{
+    
+    return (this.keycloakService.getToken());
+  }
+
 }
