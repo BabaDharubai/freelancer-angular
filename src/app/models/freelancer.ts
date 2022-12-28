@@ -4,8 +4,8 @@ import { Experience } from './experience';
 
 export class Freelancer {
   constructor(
-    public id: string,
-    public rev: string,
+    public _id: string,
+    public _rev: string,
     public name: string,
     public userName: string,
     public email: string,

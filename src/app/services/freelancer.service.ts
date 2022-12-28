@@ -53,7 +53,7 @@ export class FreelancerService {
     return this._http.put<Freelancer>(this._baseUrl,freelancer);
   }
 
-  deleteFreelancer=(freelancer:Freelancer):Observable<Freelancer>=>{
+  deleteFreelancer=(freelancerId:string):Observable<Freelancer>=>{
 
     return this._http.delete<Freelancer>(this._baseUrl);
   }

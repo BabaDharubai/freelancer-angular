@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FilterPipe } from './utils/filter.pipe';
+import { ExperiencePipe } from './utils/experience.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ViewlistComponent,
     ViewdetailsComponent,
     PaginationComponent,
-    NavBarComponent
+    NavBarComponent,
+    FilterPipe,
+    ExperiencePipe
   ],
   imports: [
     BrowserModule,

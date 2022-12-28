@@ -1,11 +1,27 @@
 table {
     width: 90%;
+    background-color: rgb(230, 235, 240);
+    text-align: center;
   }
 
 div{
   overflow: scroll;
 }
-
+tr:hover{
+  background-color: white;
+}
 .list-icons{
   float: none;
+}
+
+td,th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+th{
+  font-weight: bold;
+  font-size: small;
+  color: slateblue;
+  text-align: center;
+  background-color: rgb(202, 225, 248);
 }

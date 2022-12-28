@@ -14,7 +14,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
 import {MatDatepickerModule} from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
-import {MatPaginatorModule} from '@angular/material/paginator'
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card'
 
 @NgModule({
   declarations: [],
@@ -33,7 +35,9 @@ import {MatPaginatorModule} from '@angular/material/paginator'
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatGridListModule,
+    MatCardModule
 
     
     
@@ -54,7 +58,9 @@ import {MatPaginatorModule} from '@angular/material/paginator'
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatGridListModule,
+    MatCardModule
     
   ]
 })

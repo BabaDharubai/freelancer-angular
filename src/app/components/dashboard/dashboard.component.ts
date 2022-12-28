@@ -11,8 +11,12 @@ export class DashboardComponent implements OnInit {
   constructor(private _authService:AuthService) { }
 
   ngOnInit(): void {
+    
   }
 
+  userProfile(){
+    this._authService.redirectToProfile();
+  }
   logout(){
     this._authService.logout();
   }

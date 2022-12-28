@@ -26,22 +26,24 @@ export class ViewlistComponent implements OnInit {
   freelancers!:Freelancer[];
   roles!:string[];
 
+  breakpoint!: number;
+
   // displayedColumns: string[] = [  'userName', 'email','mobile','hoursPerWeek','rating','talentQuality','availableBadge','gender','jobsCompleted','joinedDate','pricePerHour','description'];
-  
+  options!:string[];
   freelancer!:Freelancer;
   displayedColumns!:string[];
   // res!:dataResponse;
   ngOnInit(): void {
 
     this.roles=this._authService.getRoles();
-
+    this.breakpoint = (window.innerWidth <= 400) ? 1 : 4;
     this._freelancerService.getFreelacners().subscribe({
       next:(data)=>{
         this.displayedColumns=data.columns;
         this.freelancers=data.data;
        
         // this.displayedColumns= Object.keys(data[0]);
-        // this.options=this.displayedColumns;
+        this.options=this.displayedColumns;
         // console.log(this.displayedColumns);
         // this.freelancers=data;
        
@@ -58,7 +60,7 @@ export class ViewlistComponent implements OnInit {
     this._dialog.open(pick);
   }
   
-  options!:string[];
+  
 
   show=(filter:string[]|any)=>{
     if(filter)
@@ -83,6 +85,12 @@ export class ViewlistComponent implements OnInit {
       error:(error)=>console.log(error),
       complete:()=>console.log("page request completed")
     })
+  }
+
+
+  
+  onResize(event:any) {
+    this.breakpoint = (event.target.innerWidth <= 400) ? 1 : 4;
   }
 
 }
