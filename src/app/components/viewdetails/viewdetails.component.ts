@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup, NgForm } from '@angular/forms';
+import { Component, OnInit} from '@angular/core';
+import { FormArray, FormBuilder,  FormGroup} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Freelancer } from 'src/app/models/freelancer';
 import { FreelancerService } from 'src/app/services/freelancer.service';
@@ -81,7 +81,8 @@ export class ViewdetailsComponent implements OnInit {
 
   constructor(
     private _freelancerService: FreelancerService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private fb:FormBuilder
   ) {}
 
   freelancera!: Freelancer;
@@ -101,52 +102,89 @@ export class ViewdetailsComponent implements OnInit {
       );
   }
 
-  freelancer: FormGroup = new FormGroup({
-    _id: new FormControl(),
-    _rev: new FormControl(),
-    name: new FormControl(),
-    userName: new FormControl(),
-    email: new FormControl(),
-    mobile: new FormControl(),
-    address: new FormGroup({
-      city: new FormControl(),
-      state: new FormControl(),
-      country: new FormControl(),
-      zip: new FormControl(),
+  freelancer: FormGroup = this.fb.group({
+    _id: [],
+    _rev: [],
+    name: [],
+    userName: [],
+    email: [],
+    mobile: [],
+    address: this.fb.group({
+      city: [],
+      state: [],
+      country: [],
+      zip: [],
     }),
-    category: new FormControl(),
-    hoursPerWeek: new FormControl(),
-    rating: new FormControl(),
-    talentQuality: new FormControl(),
-    availableBadge: new FormControl(),
-    skills: new FormControl(),
-    gender: new FormControl(),
-    languages: new FormControl(),
-    jobsCompleted: new FormControl(),
-    joinedDate: new FormControl(),
-    pricePerHour: new FormControl(),
-    description: new FormControl(),
-    certificates: new FormArray([
-      new FormGroup({
-      course:new FormControl(),
-      duration: new FormControl(),
-      provider: new FormControl(),
-      })
+    category: [],
+    hoursPerWeek: [],
+    rating: [],
+    talentQuality: [],
+    availableBadge: [],
+    skills: [],
+    gender: [],
+    languages: [],
+    jobsCompleted: [],
+    joinedDate: [],
+    pricePerHour: [],
+    description: [],
+    certificates: this.fb.array([
+      // new FormGroup({
+      // course:new FormControl(),
+      // duration: new FormControl(),
+      // provider: new FormControl(),
+      // })
+      this.addCertificateFormGroup(),
     ]),
-    
-
-    experiences: new FormArray([
-      new FormGroup({
-      companyName: new FormControl(),
-      role: new FormControl(),
-      startDate: new FormControl(),
-      endDate: new FormControl(),
-    })]),
+    experiences: this.fb.array([
+      // this.fb.group({
+      // companyName: [],
+      // role: [],
+      // startDate: [],
+      // endDate: []
+    // })
+    this.addExperienceFormGroup()
+  ]),
   });
 
   addFreelancer(freelancer: Freelancer) {
     console.log('yes');
+    console.log(freelancer);
     this._freelancerService.saveFreelancer(freelancer);
   }
   
+  addCertificateFormGroup():FormGroup{
+    return this.fb.group({
+      course:[],
+      duration: [],
+      provider: [],
+    })
+  }
+
+  addCertificateButton():void{
+    (<FormArray>this.freelancer.get('certificates')).push(this.addCertificateFormGroup());
+  }
+
+  addExperienceFormGroup():FormGroup{
+    return this.fb.group({
+      companyName: [],
+      role: [],
+      startDate: [],
+      endDate: []
+    })
+  }
+
+  addExperienceButton():void{
+    (<FormArray>this.freelancer.get('experiences')).push(this.addExperienceFormGroup());
+  }
+
+  get certificates(){
+    return this.freelancer.get('certificates') as FormArray;
+  }
+
+  get experiences(){
+    return this.freelancer.get('experiences') as FormArray;
+  }
+
+
+
 }

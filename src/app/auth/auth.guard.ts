@@ -11,15 +11,15 @@ export class AuthGuard extends KeycloakAuthGuard{
   constructor(
     protected override router:Router,
     protected keycloakService:KeycloakService,
-    private authService:AuthService
+    // private authService:AuthService
   ){
     super(router,keycloakService);
   }
 
   public async isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
     
-    const user =this.authService.getLoggedUser();
-    console.log(user);
+    // const user =this.authService.getLoggedUser();
+    // console.log(user);
 
     //Force the user to log in if currently unauthenticated
     if(!this.authenticated){
@@ -37,7 +37,7 @@ export class AuthGuard extends KeycloakAuthGuard{
     }
 
     //Allow the user to proceed if all the required roles are present
-    return requiredRoles.every((role)=>this.roles.includes(role));
+    return requiredRoles.some((role)=>this.roles.includes(role));
   }
   
 }

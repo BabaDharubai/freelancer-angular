@@ -16,7 +16,6 @@ export class AuthService {
   public getLoggedUser():KeycloakTokenParsed | undefined{
     try{
       const userDetails:KeycloakTokenParsed | undefined=this.keycloakService.getKeycloakInstance().idTokenParsed;
-      console.log(userDetails);
       return userDetails;
     }catch(e){
       console.error("Exception",e);

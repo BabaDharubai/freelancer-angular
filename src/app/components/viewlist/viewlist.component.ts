@@ -1,11 +1,14 @@
 
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { map, of } from 'rxjs';
+import { from, map, of, toArray } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Freelancer } from 'src/app/models/freelancer';
 import { FreelancerService } from 'src/app/services/freelancer.service';
+
+
 
 @Component({
   selector: 'app-viewlist',
@@ -27,20 +30,22 @@ export class ViewlistComponent implements OnInit {
   
   freelancer!:Freelancer;
   displayedColumns!:string[];
+  // res!:dataResponse;
   ngOnInit(): void {
 
     this.roles=this._authService.getRoles();
-    // console.log(this.roles);
-    // console.log(localStorage.getItem("token"));
-    of(this._authService.getToken()).forEach(val=>console.log(val));
+
     this._freelancerService.getFreelacners().subscribe({
       next:(data)=>{
-        this.displayedColumns= Object.keys(data[0]);
-        this.options=this.displayedColumns;
-        console.log(this.displayedColumns);
-        this.freelancers=data;
+        this.displayedColumns=data.columns;
+        this.freelancers=data.data;
        
-        console.log(this.freelancers[1].talentQuality)
+        // this.displayedColumns= Object.keys(data[0]);
+        // this.options=this.displayedColumns;
+        // console.log(this.displayedColumns);
+        // this.freelancers=data;
+       
+        // console.log(this.freelancers[1].talentQuality)
       },
       error:(data)=>console.log(data),
       complete:()=>console.log("Completed")
@@ -64,6 +69,20 @@ export class ViewlistComponent implements OnInit {
     console.log(freelancerId)
     if(freelancerId)
       this._router.navigate(["/view-details",freelancerId]);
+  }
+
+  onPageChange(PageSizeOptions:PageEvent){
+    let records=PageSizeOptions.pageSize;
+    let index=PageSizeOptions.pageIndex;
+    console.log(index);
+    this._freelancerService.getFreelancerPage(records,index).subscribe({
+      next:(data)=>{
+        this.freelancers=data;
+        console.log(this.freelancers);
+      },
+      error:(error)=>console.log(error),
+      complete:()=>console.log("page request completed")
+    })
   }
 
 }

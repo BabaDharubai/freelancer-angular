@@ -147,4 +147,11 @@
   <tr mat-header-row *matHeaderRowDef="options"></tr>
   <tr  (click)="route(freelancer._id)" mat-row *matRowDef="let row; columns: options;let freelancer"></tr>
 </table>
+
 </div>
+<mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[1,5, 10, 25, 100]"
+              aria-label="Select page"
+              (page)="onPageChange($event)">
+</mat-paginator>
